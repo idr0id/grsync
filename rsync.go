@@ -162,6 +162,10 @@ type RsyncOptions struct {
 	SkipCompress []string
 	// CVSExclude auto-ignore files in the same way CVS does
 	CVSExclude bool
+	// Don't exclude files matching PATTERN
+	Include []string
+	// Exclude files matching PATTERN
+	Exclude []string
 	// Stats give some file-transfer stats
 	Stats bool
 	// HumanReadable output numbers in a human-readable format
@@ -498,6 +502,18 @@ func getArguments(options RsyncOptions) []string {
 
 	if options.CVSExclude {
 		arguments = append(arguments, "--cvs-exclude")
+	}
+
+	if len(options.Include) > 0 {
+		for _, include := range options.Include {
+			arguments = append(arguments, "--include", include)
+		}
+	}
+
+	if len(options.Exclude) > 0 {
+		for _, exclude := range options.Exclude {
+			arguments = append(arguments, "--exclude", exclude)
+		}
 	}
 
 	if options.Stats {

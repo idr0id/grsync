@@ -546,4 +546,24 @@ func TestParseArguments(t *testing.T) {
 		})
 		assert.Contains(t, args, "--ipv6")
 	})
+
+	t.Run("--include", func(t *testing.T) {
+		args := getArguments(RsyncOptions{
+			Include: []string{"a", "b"},
+		})
+		assert.ElementsMatch(
+			t,
+			args,
+			[]string{"--include", "a", "--include", "b"})
+	})
+
+	t.Run("--exclude", func(t *testing.T) {
+		args := getArguments(RsyncOptions{
+			Exclude: []string{"a", "b"},
+		})
+		assert.ElementsMatch(
+			t,
+			args,
+			[]string{"--exclude", "a", "--exclude", "b"})
+	})
 }
