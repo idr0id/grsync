@@ -166,6 +166,10 @@ type RsyncOptions struct {
 	Include []string
 	// Exclude files matching PATTERN
 	Exclude []string
+	// Read include patterns from file
+	IncludeFrom []string
+	// Read exclude patterns from file
+	ExcludeFrom []string
 	// Stats give some file-transfer stats
 	Stats bool
 	// HumanReadable output numbers in a human-readable format
@@ -504,9 +508,21 @@ func getArguments(options RsyncOptions) []string {
 		}
 	}
 
+	if len(options.IncludeFrom) > 0 {
+		for _, includeFrom := range options.IncludeFrom {
+			arguments = append(arguments, "--include-from", includeFrom)
+		}
+	}
+
 	if len(options.Exclude) > 0 {
 		for _, exclude := range options.Exclude {
 			arguments = append(arguments, "--exclude", exclude)
+		}
+	}
+
+	if len(options.ExcludeFrom) > 0 {
+		for _, excludeFrom := range options.ExcludeFrom {
+			arguments = append(arguments, "--exclude-from", excludeFrom)
 		}
 	}
 

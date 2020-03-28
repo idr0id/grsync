@@ -566,4 +566,24 @@ func TestParseArguments(t *testing.T) {
 			args,
 			[]string{"--exclude", "a", "--exclude", "b"})
 	})
+
+	t.Run("--include-from", func(t *testing.T) {
+		args := getArguments(RsyncOptions{
+			IncludeFrom: []string{"a", "b"},
+		})
+		assert.ElementsMatch(
+			t,
+			args,
+			[]string{"--include-from", "a", "--include-from", "b"})
+	})
+
+	t.Run("--exclude-from", func(t *testing.T) {
+		args := getArguments(RsyncOptions{
+			ExcludeFrom: []string{"a", "b"},
+		})
+		assert.ElementsMatch(
+			t,
+			args,
+			[]string{"--exclude-from", "a", "--exclude-from", "b"})
+	})
 }
