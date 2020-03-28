@@ -170,6 +170,8 @@ type RsyncOptions struct {
 	IncludeFrom []string
 	// Read exclude patterns from file
 	ExcludeFrom []string
+	// All *from/filter files are delimited by 0s
+	From0 bool
 	// Stats give some file-transfer stats
 	Stats bool
 	// HumanReadable output numbers in a human-readable format
@@ -524,6 +526,10 @@ func getArguments(options RsyncOptions) []string {
 		for _, excludeFrom := range options.ExcludeFrom {
 			arguments = append(arguments, "--exclude-from", excludeFrom)
 		}
+	}
+
+	if options.From0 {
+		arguments = append(arguments, "--from0")
 	}
 
 	if options.Stats {

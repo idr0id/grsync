@@ -586,4 +586,11 @@ func TestParseArguments(t *testing.T) {
 			args,
 			[]string{"--exclude-from", "a", "--exclude-from", "b"})
 	})
+
+	t.Run("--from0", func(t *testing.T) {
+		args := getArguments(RsyncOptions{
+			From0: true,
+		})
+		assert.Contains(t, args, "--from0")
+	})
 }
